@@ -1,0 +1,54 @@
+<table class="table table-striped">
+    <thead>
+        <tr>
+          <th scope="col">Name</th>
+          <th scope="col">Cours</th>
+          <th scope="col">book a seesion</th>
+        </tr>
+      </thead>
+<tbody>
+    <tr *ngFor="let tutor of tutors">
+        <td>{{tutor.name}}</td>
+        <td>{{tutor.cours}}</td>
+        <td><button class="btn btn-success" (click)="triggerModal(modalData,tutor._id)">Réserver</button>
+        </td>
+
+
+      </tr>
+
+</tbody>
+</table>
+<ng-template #modalData let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Sélectionner une session</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">×</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    
+   <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+
+    <select class="custom-select" (change)="changeSession($event)" formControlName="sessionName">
+      <option value="">Choose your session</option>
+      <option *ngFor="let session of sessions" [value]="session._id">{{session.startTime}} -> {{session.endTime}}</option>
+   </select>
+   <div>
+    <label for="client">client</label>
+    <input id="client" type="text" formControlName="client" class="form-control">
+</div>
+ 
+    <!-- error block -->
+    <div class="invalid-feedback" *ngIf=" isSubmitted ">
+       <sup>*</sup>Please enter your session
+    </div>
+ 
+    <!-- Submit Button -->
+    <div class="mt-4">
+      <button type="submit" class="btn btn-success">Submit</button>
+
+    </div>
+ </form>
+  </div>
+</ng-template>
+<router-outlet></router-outlet>

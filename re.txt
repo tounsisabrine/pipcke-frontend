@@ -1,0 +1,9 @@
+front end 
+cd 
+npm install
+ng serve
+
+back end 
+cd 
+npm install
+npm run start
